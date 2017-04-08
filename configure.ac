@@ -11,8 +11,10 @@ AC_CONFIG_HEADERS([config.h])
 AC_PROG_CXX
 
 # Checks for libraries.
+AC_SEARCH_LIBS([hci_le_create_conn],[bluetooth], [], [AC_MSG_ERROR([unable to find hci_le_create_conn])])
 
 # Checks for header files.
+AC_CHECK_HEADERS([bluetooth/bluetooth.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
