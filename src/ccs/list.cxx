@@ -1,11 +1,13 @@
-#include "ccs.h"
-
+#include "ccs.hxx"
 
 struct ccs::cdr
 {
-	struct cdr *	cdr;
-	void *		car;
-}
+			cdr( void * car, cdr * cdr = 0L ) { _car = car; _cdr = cdr; }
+	~		cdr() {};
+
+	cdr *		_cdr;
+	void *		_car;
+};
 
 ccs::baselist::baselist()
 	: _cdr( 0L )
@@ -14,14 +16,37 @@ ccs::baselist::baselist()
 
 ccs::baselist::~baselist()
 {
-	struct cdr **	cdrp = _cdr;
-	struct cdr *	free;
+	struct cdr *	next = _cdr;
 
-	while ( (free = *cdrp) != 0L )
+	while ( next != 0L )
 	{
-		cdrp = &free->cdr;
+		struct cdr * free = next;
+
+		next = free->_cdr;
 		delete free;
 	}
+	_cdr = 0L;
 }
 
+void
+ccs::baselist::push( void * item )
+{
+	ccs::cdr * cdr = new ccs::cdr( item, _cdr );
+	_cdr = cdr;
+}
 
+void *
+ccs::baselist::pop()
+{
+	void * ret = 0L;
+
+	if ( _cdr )
+	{
+		ccs::cdr * cdr = _cdr;
+
+		_cdr = cdr->_cdr;
+		ret = cdr->_car;
+		delete _cdr;
+	}
+	return ret;
+}
