@@ -17,6 +17,5 @@ AC_PROG_CXX
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
-AC_CONFIG_FILES([Makefile])
 
-AC_OUTPUT
+AC_OUTPUT(Makefile src/Makefile)

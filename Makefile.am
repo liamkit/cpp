@@ -1,2 +1,2 @@
-bin_PROGRAMS	= blescan
-blescan_SOURCES	= src/blescan.cxx
+AUTOMAKE_OPTIONS	= foreign
+SUBDIRS			= src
