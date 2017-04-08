@@ -1,2 +1,4 @@
 bin_PROGRAMS	= blescan
-blescan_SOURCES	= blescan.cxx
+blescan_SOURCES	= blescan.cxx fio.cxx
+
+
