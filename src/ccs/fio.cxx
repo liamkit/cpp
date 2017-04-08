@@ -1,11 +1,11 @@
-#include "fio.hxx"
+#include "ccs.hxx"
 
-fio::fio( int fd )
+ccs::fio::fio( int fd )
 	: _fd( fd )
 {
 }
 
-fio::~fio()
+ccs::fio::~fio()
 {
 
 }

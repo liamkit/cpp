@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "ccs/fio.hxx"
+#include "ccs/ccs.hxx"
 
 int
 main( int argc, char *argv[] )
