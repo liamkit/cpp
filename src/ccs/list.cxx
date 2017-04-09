@@ -2,12 +2,19 @@
 
 struct ccs::cdr
 {
-			cdr( void * car, cdr * cdr = 0L ) { _car = car; _cdr = cdr; }
-	~		cdr() {};
+			cdr( void *car, cdr *cdr = 0L);
 
-	cdr *		_cdr;
+
 	void *		_car;
+	cdr *		_cdr;
 };
+
+
+ccs::cdr::cdr( void * car, cdr * cdr )
+{
+	_car = car;
+	_cdr = cdr;
+}
 
 ccs::baselist::baselist()
 	: _cdr( 0L )
@@ -16,37 +23,51 @@ ccs::baselist::baselist()
 
 ccs::baselist::~baselist()
 {
-	struct cdr *	next = _cdr;
+	cdr * next = _cdr;
 
 	while ( next != 0L )
 	{
-		struct cdr * free = next;
+		cdr * free = next;
 
 		next = free->_cdr;
 		delete free;
 	}
-	_cdr = 0L;
 }
 
 void
 ccs::baselist::push( void * item )
 {
-	ccs::cdr * cdr = new ccs::cdr( item, _cdr );
-	_cdr = cdr;
+	_cdr = new cdr( item, _cdr );
 }
 
 void *
 ccs::baselist::pop()
 {
 	void * ret = 0L;
-
 	if ( _cdr )
 	{
-		ccs::cdr * cdr = _cdr;
+		cdr *	free = _cdr;
 
-		_cdr = cdr->_cdr;
-		ret = cdr->_car;
-		delete _cdr;
+		ret = free->_car;
+		_cdr = free->_cdr;
+
+		delete free;
+	}
+
+	return ret;
+}
+
+int
+ccs::baselist::mapcar( int (func)(void *) )
+{
+	int ret = 0;
+
+	for ( cdr * next = _cdr; next != 0L; next = next->_cdr )
+	{
+		if ( (ret = (func)(next->_car )) < 0 )
+		{
+			break;
+		}
 	}
 	return ret;
 }

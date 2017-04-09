@@ -6,24 +6,27 @@ struct cdr;
 class baselist
 {
 public:
-			baselist( void );
-	~		baselist( void );
+				baselist();
+	~			baselist();
 
+	typedef int		(*mcf)(void *);
 
-	void		push( void * item );
-	void *		pop( void );
 
 protected:
-	struct cdr *	_cdr;
+	int			mapcar( mcf );
+	void			push( void * item );
+	void *			pop();
+
+	cdr *			_cdr;
 };
 
-
-template<class T>
+template <class T>
 class list : baselist
 {
 public:
-	void		push( T item ) { baselist::push( (void*) item ); }
-	T		pop( void ) { (T)baselist::pop(); }
+	int			mapcar( int (func)(T *) ) { return baselist::mapcar( (mcf)func ); }
+	void			push( T * item ) { baselist::push( item ); }
+	T *			pop() { return (T*) baselist::pop(); }
 };
 
 #endif
