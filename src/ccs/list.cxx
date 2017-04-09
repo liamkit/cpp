@@ -71,3 +71,14 @@ ccs::baselist::mapcar( int (func)(void *) )
 	}
 	return ret;
 }
+
+int
+ccs::baselist::size()
+{
+	int ret = 0;
+	for ( cdr *next = _cdr; next != 0L; next = next->_cdr )
+	{
+		ret++;
+	}
+	return ret;
+}

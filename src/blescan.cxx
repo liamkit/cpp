@@ -32,6 +32,7 @@ main( int argc, char *argv[] )
 		l.push(new int(8));
 		l.push(new int(16));
 		l.push(new int(32));
+		std::cout << "size is " << l.size() << std::endl;
 
 		int * ip = l.pop();
 		std::cout << "pop1 " << *ip << std::endl;
@@ -40,6 +41,8 @@ main( int argc, char *argv[] )
 		ip = l.pop();
 		std::cout << "pop2 " << *ip << std::endl;
 		delete ip;
+
+		std::cout << "size is " << l.size() << std::endl;
 
 		l.mapcar( p );
 		l.mapcar( d );

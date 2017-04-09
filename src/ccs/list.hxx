@@ -11,6 +11,8 @@ public:
 
 	typedef int		(*mcf)(void *);
 
+	int			size();
+
 
 protected:
 	int			mapcar( mcf );
@@ -21,7 +23,7 @@ protected:
 };
 
 template <class T>
-class list : baselist
+class list : public baselist
 {
 public:
 	int			mapcar( int (func)(T *) ) { return baselist::mapcar( (mcf)func ); }
