@@ -16,6 +16,7 @@ public:
 
 protected:
 	int			mapcar( mcf );
+	int			remove( void * item );
 	void			push( void * item );
 	void *			pop();
 
@@ -27,6 +28,7 @@ class list : public baselist
 {
 public:
 	int			mapcar( int (func)(T *) ) { return baselist::mapcar( (mcf)func ); }
+	int			remove( T * item ) { return baselist::remove( item ); }
 	void			push( T * item ) { baselist::push( item ); }
 	T *			pop() { return (T*) baselist::pop(); }
 };
